@@ -1,0 +1,8 @@
+merge
+crop
+remove page 
+split
+comprese
+pdf to excel
+pdf to jpg
+jpg to pdf

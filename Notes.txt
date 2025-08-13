@@ -1,0 +1,15 @@
+
+---->>>1. We provide high size 
+---->>>2. We did not store data on server / privacy issue  
+---->>>3. We unlimited free use for limited time
+---->>>4. We provide high limit 
+---->>>5. offer multi-language support 
+
+11-->
+| Service              | Free Version Limit           | Paid Version Limit      |
+| -------------------- | ---------------------------- | ----------------------- |
+| Smallpdf             | \~15–20 MB per file          | Up to 5 GB              |
+| iLovePDF             | \~15–20 MB per file          | Up to 4 GB              |
+| PDF24 Tools          | \~10–20 MB per file          | Unlimited (desktop app) |
+| Adobe Acrobat Online | \~10 MB per file             | \~100 MB+ (paid)        |
+| Sejda                | \~50 MB per file / 200 pages | 500 MB / 1,000 pages    |
