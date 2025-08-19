@@ -3,7 +3,7 @@ import { lazy } from "react";
 
 export const allTools = [
     {
-        path: "/merge",
+        path: "/merge-pdf",
         name: "Merge PDF",
         description: "Combine multiple PDFs into one file in seconds.",
         color: "bg-indigo-600",

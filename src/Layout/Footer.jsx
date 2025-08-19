@@ -1,4 +1,5 @@
 import { FileText } from "lucide-react";
+import moment from "moment";
 import { Link } from "react-router";
 
 const Footer = () => {
@@ -62,7 +63,7 @@ const Footer = () => {
                     </div>
 
                     <div className="mt-4 pt-4 border-gray-800 border-t text-gray-400 text-center">
-                        <p>&copy; 2025 PDFTools. All rights reserved. Built with ❤️ for better PDF editing.</p>
+                        <p>&copy; {moment().year()} PDFTools. All rights reserved. Built with ❤️ for better PDF editing.</p>
                     </div>
                 </div>
             </footer>

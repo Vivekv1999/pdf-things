@@ -1,10 +1,7 @@
-import { Component, Suspense } from "react";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Suspense } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import Applayout from "./Layout/Applayout";
-import HomePage from "./Layout/HomePage";
-import About from "./Pages/About";
-import ContactUs from "./Pages/ContactUs";
-import { allTools } from "./Tools/AllTools";
+import AllRoutes from "./Routes/Routes";
 
 const App = () => {
 
@@ -27,15 +24,7 @@ const App = () => {
               </div>
             }
           >
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              {allTools.map(({ path }) => (
-                <Route key={path} path={path} element={<Component />} />
-              ))}
-              <Route path="/about" element={<About />} />
-              <Route path="/contact-us" element={<ContactUs />} />
-              {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
-            </Routes>
+            <AllRoutes />
           </Suspense>
         </Applayout>
       </Router>

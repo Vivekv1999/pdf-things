@@ -20,9 +20,9 @@ const HomePage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15, duration: 0.6 }}
-                        className="mx-auto mt-6 max-w-2xl text-gray-600 dark:text-gray-300 text-lg sm:text-xl"
+                        className="mx-auto mt-6 max-w-2xl text-gray-600 text-lg sm:text-xl"
                     >
-                        Merge, split, crop, compress and more — no sign‑up, lightning‑fast & 100% free.
+                        Merge, split, crop, compress and more — no sign-up, lightning-fast & 100% free.
                     </motion.p>
                 </div>
             </section>
@@ -32,16 +32,16 @@ const HomePage = () => {
                         <motion.div
                             key={path}
                             whileHover={{ y: -4 }}
-                            className="group bg-white/70 dark:bg-white/5 shadow-sm hover:shadow-lg p-6 border rounded-2xl transition-all cursor-pointer"
+                            className="group bg-white/70 shadow-sm hover:shadow-lg p-6 border rounded-2xl transition-all cursor-pointer"
                             onClick={() => (window.location.href = path)}
                         >
                             <div className={`w-12 h-12 flex items-center justify-center rounded-xl ${color} text-white mb-4 shadow-lg`}>
                                 <Icon className="w-6 h-6" />
                             </div>
-                            <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl group-hover:underline">
+                            <h2 className="font-semibold text-gray-900 text-xl group-hover:underline">
                                 {name}
                             </h2>
-                            <p className="mt-1 text-gray-600 dark:text-gray-400 text-sm line-clamp-2">
+                            <p className="mt-1 text-gray-600 text-sm line-clamp-2">
                                 {description}
                             </p>
                         </motion.div>
@@ -49,7 +49,7 @@ const HomePage = () => {
                 </div>
             </section>
 
-            <section className="bg-gradient-to-r from-indigo-50 dark:from-gray-900/50 to-purple-50 dark:to-gray-800/50 px-4 py-16">
+            <section className="bg-gradient-to-r from-indigo-50 to-purple-50 px-4 py-16">
                 <div className="mx-auto max-w-4xl text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -57,10 +57,10 @@ const HomePage = () => {
                         transition={{ duration: 0.6 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="mb-6 font-bold text-gray-900 dark:text-gray-100 text-3xl sm:text-4xl">
+                        <h2 className="mb-6 font-bold text-gray-900 text-3xl sm:text-4xl">
                             Everything Happens in Your Browser
                         </h2>
-                        <p className="mb-8 text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+                        <p className="mb-8 text-gray-600 text-lg leading-relaxed">
                             Our advanced client-side technology means your sensitive documents never leave your computer. No servers,
                             no cloud storage, no privacy concerns. Just pure, secure PDF processing powered by modern web
                             technologies.
@@ -72,10 +72,10 @@ const HomePage = () => {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.2, duration: 0.5 }}
                                 viewport={{ once: true }}
-                                className="bg-white dark:bg-gray-800 shadow-sm p-6 rounded-xl"
+                                className="bg-white shadow-sm p-6 rounded-xl"
                             >
-                                <h3 className="mb-3 font-semibold text-gray-900 dark:text-gray-100 text-xl">🔒 Maximum Security</h3>
-                                <p className="text-gray-600 dark:text-gray-400">
+                                <h3 className="mb-3 font-semibold text-gray-900 text-xl">🔒 Maximum Security</h3>
+                                <p className="text-gray-600">
                                     Your files are processed entirely within your browser using WebAssembly and JavaScript. No data
                                     transmission, no server storage.
                                 </p>
@@ -86,10 +86,10 @@ const HomePage = () => {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.3, duration: 0.5 }}
                                 viewport={{ once: true }}
-                                className="bg-white dark:bg-gray-800 shadow-sm p-6 rounded-xl"
+                                className="bg-white shadow-sm p-6 rounded-xl"
                             >
-                                <h3 className="mb-3 font-semibold text-gray-900 dark:text-gray-100 text-xl">⚡ Instant Processing</h3>
-                                <p className="text-gray-600 dark:text-gray-400">
+                                <h3 className="mb-3 font-semibold text-gray-900 text-xl">⚡ Instant Processing</h3>
+                                <p className="text-gray-600">
                                     No upload delays or queue waiting. Start processing immediately and get results in seconds, not
                                     minutes.
                                 </p>
@@ -108,10 +108,10 @@ const HomePage = () => {
                         viewport={{ once: true }}
                         className="mb-12 text-center"
                     >
-                        <h2 className="mb-4 font-bold text-gray-900 dark:text-gray-100 text-3xl sm:text-4xl">
+                        <h2 className="mb-4 font-bold text-gray-900 text-3xl sm:text-4xl">
                             Why Choose Our PDF Tools?
                         </h2>
-                        <p className="mx-auto max-w-2xl text-gray-600 dark:text-gray-300 text-lg">
+                        <p className="mx-auto max-w-2xl text-gray-600 text-lg">
                             Built for professionals, students, and anyone who works with PDFs regularly.
                         </p>
                     </motion.div>
@@ -145,18 +145,18 @@ const HomePage = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1, duration: 0.5 }}
                                 viewport={{ once: true }}
-                                className="bg-white dark:bg-gray-800/50 shadow-sm hover:shadow-md p-6 border border-gray-200 dark:border-gray-700 rounded-xl transition-shadow"
+                                className="bg-white shadow-sm hover:shadow-md p-6 border border-gray-200 rounded-xl transition-shadow"
                             >
-                                <feature.icon className="mb-4 w-10 h-10 text-indigo-600 dark:text-indigo-400" />
-                                <h3 className="mb-2 font-semibold text-gray-900 dark:text-gray-100 text-lg">{feature.title}</h3>
-                                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{feature.description}</p>
+                                <feature.icon className="mb-4 w-10 h-10 text-indigo-600" />
+                                <h3 className="mb-2 font-semibold text-gray-900 text-lg">{feature.title}</h3>
+                                <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
                             </motion.div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            <section className="bg-gradient-to-r from-indigo-50 dark:from-gray-900/50 to-purple-50 dark:to-gray-800/50 px-4 py-16">
+            <section className="bg-gradient-to-r from-indigo-50 to-purple-50 px-4 py-16">
                 <div className="mx-auto max-w-6xl">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -165,10 +165,10 @@ const HomePage = () => {
                         viewport={{ once: true }}
                         className="mb-12 text-center"
                     >
-                        <h2 className="mb-4 font-bold text-gray-900 dark:text-gray-100 text-3xl sm:text-4xl">
+                        <h2 className="mb-4 font-bold text-gray-900 text-3xl sm:text-4xl">
                             Your Privacy is Our Priority
                         </h2>
-                        <p className="mx-auto max-w-2xl text-gray-600 dark:text-gray-300 text-lg">
+                        <p className="mx-auto max-w-2xl text-gray-600 text-lg">
                             Everything happens in your browser. No uploads, no servers, no data collection.
                         </p>
                     </motion.div>
@@ -184,8 +184,8 @@ const HomePage = () => {
                             <div className="flex justify-center items-center bg-green-500 shadow-lg mx-auto mb-4 rounded-full w-16 h-16">
                                 <Shield className="w-8 h-8 text-white" />
                             </div>
-                            <h3 className="mb-2 font-semibold text-gray-900 dark:text-gray-100 text-xl">100% Secure</h3>
-                            <p className="text-gray-600 dark:text-gray-400">
+                            <h3 className="mb-2 font-semibold text-gray-900 text-xl">100% Secure</h3>
+                            <p className="text-gray-600">
                                 All processing happens locally in your browser. Your files never leave your device.
                             </p>
                         </motion.div>
@@ -200,8 +200,8 @@ const HomePage = () => {
                             <div className="flex justify-center items-center bg-blue-500 shadow-lg mx-auto mb-4 rounded-full w-16 h-16">
                                 <Lock className="w-8 h-8 text-white" />
                             </div>
-                            <h3 className="mb-2 font-semibold text-gray-900 dark:text-gray-100 text-xl">No Registration</h3>
-                            <p className="text-gray-600 dark:text-gray-400">
+                            <h3 className="mb-2 font-semibold text-gray-900 text-xl">No Registration</h3>
+                            <p className="text-gray-600">
                                 Start using our tools immediately. No accounts, no passwords, no hassle.
                             </p>
                         </motion.div>
@@ -216,8 +216,8 @@ const HomePage = () => {
                             <div className="flex justify-center items-center bg-purple-500 shadow-lg mx-auto mb-4 rounded-full w-16 h-16">
                                 <ZapIcon className="w-8 h-8 text-white" />
                             </div>
-                            <h3 className="mb-2 font-semibold text-gray-900 dark:text-gray-100 text-xl">Lightning Fast</h3>
-                            <p className="text-gray-600 dark:text-gray-400">
+                            <h3 className="mb-2 font-semibold text-gray-900 text-xl">Lightning Fast</h3>
+                            <p className="text-gray-600">
                                 No waiting for uploads or downloads. Process your PDFs instantly.
                             </p>
                         </motion.div>
