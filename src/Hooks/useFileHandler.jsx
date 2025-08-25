@@ -1,7 +1,9 @@
 import { PDFDocument } from "pdf-lib";
 import { useCallback } from "react";
+import pdfjsLib from "../lib/pdfWorker";
+import { v4 as uuidv4 } from "uuid";
 
-export default function useFileHandler(onLoad) {
+export default function useFileHandler(onLoad, pdfs) {
 
     const loadPdfMeta = async (file) => {
         const bytes = await file.arrayBuffer();
