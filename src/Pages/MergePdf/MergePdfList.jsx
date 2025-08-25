@@ -1,7 +1,12 @@
 import React from "react";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
+import DragAndDropInput from "../../Tools/DragAndDropInput/DragAndDropInput";
 
-export const MergePdfList = ({ pdfs, setPdfs }) => {
+export const MergePdfList = ({
+    pdfs,
+    setPdfs,
+    handleFiles
+}) => {
 
     const handleDragEnd = (result) => {
         if (!result.destination) return;
@@ -64,6 +69,9 @@ export const MergePdfList = ({ pdfs, setPdfs }) => {
                                     )}
                                 </Draggable>
                             ))}
+                            <DragAndDropInput
+                                handleFileChange={handleFiles}
+                            />
                             {provided.placeholder}
                         </div>
                     )}

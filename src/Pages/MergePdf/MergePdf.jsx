@@ -26,6 +26,7 @@ const MergePdf = () => {
                     <MergePdfList
                         pdfs={pdfs}
                         setPdfs={setPdfs}
+                        handleFiles={handleFiles}
                     />
 
                     <MergeActionButton

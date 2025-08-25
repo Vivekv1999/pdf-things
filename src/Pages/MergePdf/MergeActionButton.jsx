@@ -1,34 +1,41 @@
 import { PDFDocument } from "pdf-lib";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { APP_NAME } from "../../constants/appConstants";
+import useMergePdfs from "../../Hooks/useMergePdfs";
+import { Result } from "postcss";
 
 export const MergeActionButton = ({ pdfs }) => {
+    const [alredyMergePdf, setAlredyMergePdf] = useState(null)
+    const mergePdfs = useMergePdfs();
 
-    const mergePdfs = async () => {
-
-        if (pdfs.length === 0) return;
-        const merged = await PDFDocument.create();
-
-        for (const pdf of pdfs) {
-            const srcDoc = await PDFDocument.load(pdf.bytes);
-            const copied = await merged.copyPages(srcDoc, srcDoc.getPageIndices());
-            copied.forEach((page) => merged.addPage(page));
+    useEffect(() => {
+        if (pdfs?.length && alredyMergePdf) {
+            setAlredyMergePdf(null)
         }
-        const mergedBytes = await merged.save();
-        const blob = new Blob([mergedBytes], { type: "application/pdf" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `${APP_NAME}-merged.pdf`;
-        link.click();
+    }, [pdfs])
 
-        URL.revokeObjectURL(url);
+    const handleMergePdfs = async () => {
+        const start = performance.now();
+        if (alredyMergePdf) {
+            alredyMergePdf.download();
+            console.log("ppppppppppppp", "result");
+        }
+        else {
+            const result = await mergePdfs(pdfs);
+            console.log(result, "result");
+            setAlredyMergePdf(result)
+            if (result) {
+                result.download();
+            }
+        }
+        const end = performance.now();
+        console.log(`Merging took ${(end - start).toFixed(2)} ms`);
     };
 
     return (
         <>
             <button
-                onClick={mergePdfs}
+                onClick={handleMergePdfs}
                 className="mt-6 w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-colors"
             >
                 Merge & Download

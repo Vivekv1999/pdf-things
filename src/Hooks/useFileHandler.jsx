@@ -9,9 +9,9 @@ export default function useFileHandler(onLoad, pdfs) {
         const bytes = await file.arrayBuffer();
         const doc = await PDFDocument.load(bytes);
         const pageCount = doc.getPageCount();
-        const previews = await Promise.all(
-            Array.from({ length: pageCount }, (_, i) => renderPdfPagePreview(file, i + 1))
-        );
+        const previews = [
+            await renderPdfPagePreview(file, 1) // only first page
+        ];
         return { pageCount, bytes, previews };
     };
 
@@ -48,6 +48,8 @@ export default function useFileHandler(onLoad, pdfs) {
         const enriched = await Promise.all(
             fileList.map(async (file) => {
                 const meta = await loadPdfMeta(file);
+                console.log({ meta }, "meta");
+
                 return {
                     id: uuidv4(),
                     file,
