@@ -3,15 +3,36 @@ import { useCallback } from "react";
 import pdfjsLib from "../lib/pdfWorker";
 import { v4 as uuidv4 } from "uuid";
 
-export default function useFileHandler(onLoad, pdfs) {
-
-    const loadPdfMeta = async (file) => {
+export default function useFileHandler(onLoad, onProgress) {
+    const loadPdfMeta = async (file, fileIndex, totalFiles) => {
         const bytes = await file.arrayBuffer();
         const doc = await PDFDocument.load(bytes);
         const pageCount = doc.getPageCount();
-        const previews = [
-            await renderPdfPagePreview(file, 1) // only first page
-        ];
+
+        // Report progress after loading metadata
+        if (onProgress) {
+            onProgress({
+                fileName: file.name,
+                fileIndex,
+                totalFiles,
+                stage: "metadata",
+                percent: Math.round(((fileIndex + 0.3) / totalFiles) * 100),
+            });
+        }
+
+        const previews = [await renderPdfPagePreview(file, 1)];
+
+        // Report progress after preview render
+        if (onProgress) {
+            onProgress({
+                fileName: file.name,
+                fileIndex,
+                totalFiles,
+                stage: "preview",
+                percent: Math.round(((fileIndex + 1) / totalFiles) * 100),
+            });
+        }
+
         return { pageCount, bytes, previews };
     };
 
@@ -41,22 +62,24 @@ export default function useFileHandler(onLoad, pdfs) {
         });
     };
 
-    return useCallback(async (e) => {
-        const fileList = Array.from(e.target.files);
+    return useCallback(
+        async (e) => {
+            const fileList = Array.from(e.target.files).filter(
+                (f) => f.type === "application/pdf"
+            );
 
-        const pdfFiles = fileList.filter(f => f.type === "application/pdf");
-        const enriched = await Promise.all(
-            fileList.map(async (file) => {
-                const meta = await loadPdfMeta(file);
-                console.log({ meta }, "meta");
+            const totalFiles = fileList.length;
+            const enriched = [];
 
-                return {
-                    id: uuidv4(),
-                    file,
-                    ...meta,
-                };
-            })
-        );
-        if (onLoad) onLoad(enriched);
-    }, [onLoad]);
+            for (let i = 0; i < fileList.length; i++) {
+                const file = fileList[i];
+                const meta = await loadPdfMeta(file, i, totalFiles);
+                enriched.push({ id: uuidv4(), file, ...meta });
+            }
+
+            if (onLoad) onLoad(enriched);
+        },
+        [onLoad]
+    );
 }
+

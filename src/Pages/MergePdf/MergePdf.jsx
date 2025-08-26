@@ -4,36 +4,56 @@ import PdfPageHeader from "../../Layout/PdfPageHeader/PdfPageHeader";
 import DragAndDropInput from "../../Tools/DragAndDropInput/DragAndDropInput";
 import { MergePdfList } from "./MergePdfList";
 import { MergeActionButton } from "./MergeActionButton";
+import { FileProgress } from "../../components/FileProgress";
 
 const MergePdf = () => {
     const [pdfs, setPdfs] = useState([])
+    const [progress, setProgress] = useState(null);
 
     const handleFiles = useFileHandler((files) => {
         setPdfs((prev) => [...prev, ...files])
-    });
+    },
+        (update) => setProgress(update)
+    );
 
     return (
         <div className="mx-auto p-6 max-w-6xl">
-            <PdfPageHeader
-                title="Merge PDFs"
-                description="Combine multiple PDFs into a single file."
-            />
-            <DragAndDropInput
-                handleFileChange={handleFiles}
-            />
-            {pdfs.length > 0 && (
-                <>
-                    <MergePdfList
-                        pdfs={pdfs}
-                        setPdfs={setPdfs}
-                        handleFiles={handleFiles}
-                    />
+            {pdfs.length === 0 ?
+                (
+                    <>
+                        {progress ?
+                            <FileProgress progress={progress} />
+                            :
+                            (
+                                <>
+                                    <PdfPageHeader
+                                        title="Merge PDFs"
+                                        description="Combine multiple PDFs into a single file."
+                                    />
+                                    <DragAndDropInput
+                                        handleFileChange={handleFiles}
+                                    />
+                                </>
+                            )
+                        }
 
-                    <MergeActionButton
-                        pdfs={pdfs}
-                    />
-                </>
-            )}
+                    </>
+                )
+                : (
+                    <>
+                        <MergePdfList
+                            pdfs={pdfs}
+                            setPdfs={setPdfs}
+                            handleFiles={handleFiles}
+                        />
+
+                        <MergeActionButton
+                            pdfs={pdfs}
+                            setPdfs={setPdfs}
+                        />
+                    </>
+                )
+            }
 
         </div>
     )
