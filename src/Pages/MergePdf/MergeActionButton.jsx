@@ -4,7 +4,10 @@ import { APP_NAME } from "../../constants/appConstants";
 import useMergePdfs from "../../Hooks/useMergePdfs";
 import { Result } from "postcss";
 
-export const MergeActionButton = ({ pdfs }) => {
+export const MergeActionButton = ({
+    pdfs,
+    setPdfs
+}) => {
     const [alredyMergePdf, setAlredyMergePdf] = useState(null)
     const mergePdfs = useMergePdfs();
 
@@ -34,12 +37,23 @@ export const MergeActionButton = ({ pdfs }) => {
 
     return (
         <>
-            <button
-                onClick={handleMergePdfs}
-                className="mt-6 w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-colors"
-            >
-                Merge & Download
-            </button>
+            <div className="mt-28 flex flex-col sm:flex-row gap-3 justify-center">
+                {/* Reset Button */}
+                <button
+                    onClick={() => setPdfs([])}
+                    className="w-full sm:w-auto py-3 px-6 rounded-xl border border-red-300 text-red-600 font-medium hover:bg-red-100 transition-colors"
+                >
+                    Reset
+                </button>
+
+                {/* Merge Button */}
+                <button
+                    onClick={handleMergePdfs}
+                    className="w-full sm:w-auto py-3 px-6 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-colors"
+                >
+                    Merge & Download
+                </button>
+            </div>
         </>
     )
 };

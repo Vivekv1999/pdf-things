@@ -28,7 +28,7 @@ export const MergePdfList = ({
                         <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6"
+                            className="grid grid-cols-1.5 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6"
                         >
                             {pdfs.map((pdf, index) => (
                                 <Draggable key={pdf.id} draggableId={pdf.id} index={index}>
@@ -37,10 +37,8 @@ export const MergePdfList = ({
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
-                                            className="group border relative rounded-xl shadow p-2 bg-white hover:bg-gray-50 transition min-w-[200px]"
+                                            className="group border relative rounded-xl shadow p-2 bg-white hover:bg-gray-50 transition min-w-[100px]"
                                         >
-                                            {console.log(pdf, "pdf---pdfff")}
-
                                             <button
                                                 onClick={() => removePdf(pdf.id)}
                                                 className="absolute top-1.5 right-1.5 p-1 bg-white/80 hover:bg-red-500 hover:text-white text-gray-600 rounded-full shadow-md transition-colors z-10"
@@ -59,7 +57,7 @@ export const MergePdfList = ({
                                                         className="w-full h-48 object-contain rounded mb-2"
                                                     />
                                                 )}
-                                                <span className="absolute top-1 left-1 bg-indigo-600 text-white text-xs font-semibold px-2 py-1 rounded">
+                                                <span className="absolute top-1 left-[-4px] bg-indigo-600 text-white text-xs font-semibold px-2 py-1 rounded">
                                                     {String(index + 1).padStart(2, "0")}
                                                 </span>
                                             </div>
