@@ -1,15 +1,14 @@
-import React from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 
 export const FileProgress = ({ progress }) => {
     return (
-        <div className="w-full max-w-md mx-auto mt-52">
-            <div className="flex justify-between text-sm text-gray-600 mb-1">
+        <div className="mx-auto w-full max-w-md">
+            <div className="flex justify-between mb-1 text-gray-600 text-sm">
                 <span>{progress?.fileName}</span>
                 <span>{progress?.percent}%</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-7 overflow-hidden">
-                <motion.div
+            <div className="bg-gray-200 rounded-full w-full h-7 overflow-hidden">
+                <Motion.div
                     className="bg-indigo-600 h-28"
                     initial={{ width: "0%" }}
                     animate={{ width: `${progress?.percent}%` }}
