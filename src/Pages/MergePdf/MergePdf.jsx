@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { FileProgress } from "../../components/FileProgress";
 import useFileHandler from "../../Hooks/useFileHandler";
 import PdfPageHeader from "../../Layout/PdfPageHeader/PdfPageHeader";
 import DragAndDropInput from "../../Tools/DragAndDropInput/DragAndDropInput";
 import { MergeActionButton } from "./MergeActionButton";
 import { MergePdfList } from "./MergePdfList";
+import ProcessMergePdf from "./ProcessMergePdf";
 
 
 const MergePdf = () => {
@@ -31,10 +31,9 @@ const MergePdf = () => {
                     <>
                         {progress ? (
                             <>
-                                <div className="mt-48 mb-10 font-medium text-indigo-600 text-sm md:text-2xl text-center">
-                                    Processing {progress.fileIndex + 1} of {progress.totalFiles}
+                                <div className="mt-48">
+                                    <ProcessMergePdf progress={progress} />
                                 </div>
-                                <FileProgress progress={progress} />
                             </>
                         )
                             :
@@ -59,6 +58,7 @@ const MergePdf = () => {
                             pdfs={pdfs}
                             setPdfs={setPdfs}
                             handleFiles={handleFiles}
+                            progress={progress}
                         />
 
                         <MergeActionButton

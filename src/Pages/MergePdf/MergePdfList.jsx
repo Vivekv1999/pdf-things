@@ -3,6 +3,7 @@ import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { arrayMove, rectSortingStrategy, SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import DragAndDropInput from "../../Tools/DragAndDropInput/DragAndDropInput";
+import ProcessMergePdf from "./ProcessMergePdf";
 
 function SortableItem({ pdf, index, removePdf }) {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: pdf.id });
@@ -62,7 +63,7 @@ function SortableItem({ pdf, index, removePdf }) {
     );
 }
 
-export const MergePdfList = ({ pdfs, setPdfs, handleFiles }) => {
+export const MergePdfList = ({ pdfs, setPdfs, handleFiles, progress }) => {
     const sensors = useSensors(useSensor(PointerSensor));
 
     const handleDragEnd = (event) => {
@@ -102,7 +103,11 @@ export const MergePdfList = ({ pdfs, setPdfs, handleFiles }) => {
 
 
             <div className="my-10">
-                <DragAndDropInput handleFileChange={handleFiles} />
+                {progress ?
+                    <ProcessMergePdf progress={progress} />
+                    :
+                    <DragAndDropInput handleFileChange={handleFiles} />
+                }
             </div>
         </>
     );

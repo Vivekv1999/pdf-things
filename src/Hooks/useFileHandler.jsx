@@ -89,6 +89,8 @@ export default function useFileHandler(onLoad, onProgress) {
             }
             const start = performance.now();
             await handleAllPdfAtOnce(fileList, totalFiles, completed)
+            //after all pdf preview make progress bar null
+            onProgress(null)
             const end = performance.now();
             console.log(`Merging took ${(end - start).toFixed(2)} ms`);
         },
