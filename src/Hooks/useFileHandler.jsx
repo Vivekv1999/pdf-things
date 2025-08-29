@@ -1,37 +1,15 @@
 import { PDFDocument } from "pdf-lib";
 import { useCallback } from "react";
-import pdfjsLib from "../lib/pdfWorker";
 import { v4 as uuidv4 } from "uuid";
+import pdfjsLib from "../lib/pdfWorker";
 
 export default function useFileHandler(onLoad, onProgress) {
-    const loadPdfMeta = async (file, fileIndex, totalFiles) => {
+    const loadPdfMeta = async (file) => {
         const bytes = await file.arrayBuffer();
         const doc = await PDFDocument.load(bytes);
         const pageCount = doc.getPageCount();
 
-        // Report progress after loading metadata
-        if (onProgress) {
-            onProgress({
-                fileName: file.name,
-                fileIndex,
-                totalFiles,
-                stage: "metadata",
-                percent: Math.round(((fileIndex + 0.3) / totalFiles) * 100),
-            });
-        }
-
         const previews = [await renderPdfPagePreview(file, 1)];
-
-        // Report progress after preview render
-        if (onProgress) {
-            onProgress({
-                fileName: file.name,
-                fileIndex,
-                totalFiles,
-                stage: "preview",
-                percent: Math.round(((fileIndex + 1) / totalFiles) * 100),
-            });
-        }
 
         return { pageCount, bytes, previews };
     };
@@ -62,6 +40,36 @@ export default function useFileHandler(onLoad, onProgress) {
         });
     };
 
+    const handleAllPdfAtOnce = async (fileList, totalFiles, completed) => {
+
+
+        const promises = fileList.map((file, i) =>
+            loadPdfMeta(file, i, totalFiles).then((meta) => {
+                completed++;
+
+                if (onProgress) {
+                    onProgress({
+                        fileName: file.name,
+                        completed: completed,
+                        totalFiles,
+                        stage: "done",
+                        percent: Math.round((completed / totalFiles) * 100),
+                    });
+                }
+
+                return {
+                    id: uuidv4(),
+                    file,
+                    ...meta,
+                };
+            })
+        );
+
+        const enriched = await Promise.all(promises);
+
+        if (onLoad) onLoad(enriched);
+    };
+
     return useCallback(
         async (e) => {
             const fileList = Array.from(e.target.files).filter(
@@ -69,16 +77,22 @@ export default function useFileHandler(onLoad, onProgress) {
             );
 
             const totalFiles = fileList.length;
-            const enriched = [];
-
-            for (let i = 0; i < fileList.length; i++) {
-                const file = fileList[i];
-                const meta = await loadPdfMeta(file, i, totalFiles);
-                enriched.push({ id: uuidv4(), file, ...meta });
+            let completed = 0;
+            if (onProgress) {
+                onProgress({
+                    fileName: "loading...",
+                    completed: 0,
+                    totalFiles,
+                    stage: "done",
+                    percent: Math.round((completed / totalFiles) * 100),
+                });
             }
-
-            if (onLoad) onLoad(enriched);
+            const start = performance.now();
+            await handleAllPdfAtOnce(fileList, totalFiles, completed)
+            const end = performance.now();
+            console.log(`Merging took ${(end - start).toFixed(2)} ms`);
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [onLoad]
     );
 }
