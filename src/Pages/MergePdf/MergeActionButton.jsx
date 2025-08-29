@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
 import useMergePdfs from "../../Hooks/useMergePdfs";
+import LoadingDownload from "../../components/LoadingDownload";
 
 export const MergeActionButton = ({
     pdfs,
     setPdfs,
-    setProgress
+    setProgress,
+    alredyMergePdf,
+    setAlredyMergePdf
 }) => {
-    const [alredyMergePdf, setAlredyMergePdf] = useState(null)
-    const mergePdfs = useMergePdfs();
-
+    const { mergePdfs, loading, progress, result, setLoading } = useMergePdfs();
+    const messages = [
+        "Gathering your pages 📄",
+        "Merging like a pro 🔗",
+        "Compressing bits & bytes ⚡",
+        "Almost there… 🚀"
+    ];
     useEffect(() => {
         if (pdfs?.length && alredyMergePdf) {
             setAlredyMergePdf(null)
@@ -26,7 +33,9 @@ export const MergeActionButton = ({
             console.log(result, "result");
             setAlredyMergePdf(result)
             if (result) {
+                console.log("flaefaleeee,flase");
                 result.download();
+                setLoading(false)
             }
         }
         const end = performance.now();
@@ -35,8 +44,30 @@ export const MergeActionButton = ({
 
     return (
         <>
-            <div className="flex sm:flex-row flex-col justify-center gap-3 mt-28">
-                {/* Reset Button */}
+            <div className="flex sm:flex-row flex-col justify-center items-center gap-3 mt-28">
+                {!loading && !alredyMergePdf && (
+                    <button
+                        onClick={handleMergePdfs}
+                        className="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-xl w-full sm:w-auto font-semibold text-white transition-colors"
+                    >
+                        Merge & Download
+                    </button>
+                )}
+
+                {loading && (
+                    <LoadingDownload
+                        progress={progress}
+                        messages={messages}
+                    />
+                )}
+                {alredyMergePdf && (
+                    <button
+                        onClick={handleMergePdfs}
+                        className="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-xl w-full sm:w-auto font-semibold text-white transition-colors"
+                    >
+                        Merge & Download
+                    </button>
+                )}
                 <button
                     onClick={() => {
                         setPdfs([])
@@ -50,14 +81,6 @@ export const MergeActionButton = ({
                     className="hover:bg-red-100 px-6 py-3 border border-red-300 rounded-xl w-full sm:w-auto font-medium text-red-600 transition-colors"
                 >
                     Reset
-                </button>
-
-                {/* Merge Button */}
-                <button
-                    onClick={handleMergePdfs}
-                    className="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-xl w-full sm:w-auto font-semibold text-white transition-colors"
-                >
-                    Merge & Download
                 </button>
             </div>
         </>

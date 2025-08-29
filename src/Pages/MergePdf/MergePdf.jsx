@@ -10,6 +10,7 @@ import ProcessMergePdf from "./ProcessMergePdf";
 const MergePdf = () => {
     const [pdfs, setPdfs] = useState([])
     const [progress, setProgress] = useState(null);
+    const [alredyMergePdf, setAlredyMergePdf] = useState(null)
 
     //when remove pdf form list 
     useEffect(() => {
@@ -54,17 +55,21 @@ const MergePdf = () => {
                 )
                 : (
                     <>
-                        <MergePdfList
-                            pdfs={pdfs}
-                            setPdfs={setPdfs}
-                            handleFiles={handleFiles}
-                            progress={progress}
-                        />
+                        {!alredyMergePdf &&
+                            <MergePdfList
+                                pdfs={pdfs}
+                                setPdfs={setPdfs}
+                                handleFiles={handleFiles}
+                                progress={progress}
+                            />
+                        }
 
                         <MergeActionButton
                             pdfs={pdfs}
                             setPdfs={setPdfs}
                             setProgress={setProgress}
+                            alredyMergePdf={alredyMergePdf}
+                            setAlredyMergePdf={setAlredyMergePdf}
                         />
                     </>
                 )
